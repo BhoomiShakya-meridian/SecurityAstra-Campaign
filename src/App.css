@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+* {
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    scroll-behavior: smooth;
+    
+
+}
+
+body{
+    background-color: #121212;
+}
+
+.Inter{
+        font-family: "Inter", sans-serif;
+
+}
+
+.urbanist{
+    font-family: "Urbanist", sans-serif;
+
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+
+}
+
+
+.gelasio {
+  font-family: "Gelasio", serif;
+  
+}
+
+.input-shadow {
+    box-shadow: 0px 2px 15px 0px #00000040 inset;
+}
+
+
+.roboto {
+  font-family: "Roboto", sans-serif;
+  
+}
