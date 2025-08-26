@@ -9,6 +9,8 @@ const Contact = () => {
     const [selectedService, setSelectedService] = useState('Please select an option');
     const [captchaValue, setCaptchaValue] = useState(null);
     const [fullName, setFullName] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [domainName, setDomainName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -30,55 +32,59 @@ const Contact = () => {
 
     const handleSubmit = async () => {
         if (
-        !fullName ||
-        !email ||
-        !selectedService ||
-        !phoneNumber ||
-        selectedService === "Please select an option"
-    ) {
-        toast("All required fields are not filled!", { icon: '⚠️' });
-        return;
-    }
+            !fullName ||
+            !email ||
+            !selectedService ||
+            !phoneNumber ||
+            !companyName||
+            selectedService === "Please select an option"
+        ) {
+            toast("All required fields are not filled!", { icon: '⚠️' });
+            return;
+        }
 
-    if (!isValidEmail(email)) {
-        toast("Please provide a valid email address!", { icon: '⚠️' });
-        return;
-    }
+        if (!isValidEmail(email)) {
+            toast("Please provide a valid email address!", { icon: '⚠️' });
+            return;
+        }
 
-    if (!isValidMobileNumber(phoneNumber)) {
-        toast("Please provide a valid phone number!", { icon: '⚠️' });
-        return;
-    }
+        if (!isValidMobileNumber(phoneNumber)) {
+            toast("Please provide a valid phone number!", { icon: '⚠️' });
+            return;
+        }
 
-    if (!captchaValue) {
-        toast("Please verify the reCAPTCHA before submitting!", { icon: '⚠️' });
-        return;
-    }
+        if (!captchaValue) {
+            toast("Please verify the reCAPTCHA before submitting!", { icon: '⚠️' });
+            return;
+        }
 
-    if (sender) return;
-    else setSender(true);
+        if (sender) return;
+        else setSender(true);
 
 
         try {
             await postAPI('/send-astra-email', {
-               full_name: fullName,
-            company_email: email,
-            mobile_number: phoneNumber,
-            service_request: selectedService,
-            captcha_token: captchaValue,
+                full_name: fullName,
+                company_email: email,
+                company_name: companyName,
+                mobile_number: phoneNumber,
+                service_request: selectedService,
+                captcha_token: captchaValue,
             });
 
-           toast.success("Request submitted successfully!");
-        setFullName('');
-        setEmail('');
-        setPhoneNumber('');
-        setSelectedService('Please select an option');
-        setCaptchaValue(null);
-        setIsSubmitted(true);
+            toast.success("Request submitted successfully!");
+            setFullName('');
+            setEmail('');
+            setPhoneNumber('');
+            setDomainName('')
+            setCompanyName('');
+            setSelectedService('Please select an option');
+            setCaptchaValue(null);
+            setIsSubmitted(true);
 
         } catch (error) {
-                    console.error(error);
-        toast.error(error.message || "Something went wrong.");
+            console.error(error);
+            toast.error(error.message || "Something went wrong.");
 
         } finally {
             setSender(false);
@@ -144,7 +150,29 @@ const Contact = () => {
                             className="px-4 py-2 border border-[#FFFFFF36] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     </div>
-                   
+
+                    <div className="flex flex-col">
+                        <label className="text-sm font-medium text-[#FFFFFF] text-left mb-1">Company Name</label>
+                        <input
+                            disabled={sender}
+                            type="company_name"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                            className="px-4 py-2 border border-[#FFFFFF36] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                     <div className="flex flex-col">
+                        <label className="text-sm font-medium text-[#FFFFFF] text-left mb-1">Domain Name</label>
+                        <input
+                            disabled={sender}
+                            type="domain_name"
+                            value={domainName}
+                            onChange={(e) => setDomainName(e.target.value)}
+                            className="px-4 py-2 border border-[#FFFFFF36] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
                     <div className="flex flex-col">
                         <label className="text-sm font-medium text-[#FFFFFF] text-left mb-1">Phone Number</label>
                         <input
@@ -158,33 +186,32 @@ const Contact = () => {
 
                     {/* <div className='flex-1'> */}
 
-                   <div className="flex flex-col">
-  <p className="text-sm font-medium text-[#FFFFFF] text-left mb-1">Request for services</p>
-  <select
-    disabled={sender}
-    value={selectedService}
-    id="dropdown-contact"
-    onChange={(e) => setSelectedService(e.target.value)}
-    className={`${
-      selectedService === 'Please select an option' ? 'text-[#707070]' : 'text-white'
-    } 
+                    <div className="flex flex-col">
+                        <p className="text-sm font-medium text-[#FFFFFF] text-left mb-1">Request for services</p>
+                        <select
+                            disabled={sender}
+                            value={selectedService}
+                            id="dropdown-contact"
+                            onChange={(e) => setSelectedService(e.target.value)}
+                            className={`${selectedService === 'Please select an option' ? 'text-[#707070]' : 'text-white'
+                                } 
       bg-transparent text-[12px] md:text-[13px] font-medium border border-[#FFFFFF36] rounded-[10px]  
       px-4 py-[10px] focus:outline-none w-full max-w-full truncate`}
-  >
-    <option className="text-black" value="Please select an option" disabled>
-     
-    </option>
-    <option className="text-black" value="Security Astra SaaS Subscription">Security Astra Premium</option>
-    <option className="text-black" value="Website Vulnerability Assessment">Website Vulnerability Assessment</option>
-    <option className="text-black" value="Network Penetration Testing">Network Penetration Testing</option>
-    <option className="text-black" value="Endpoint Security Assessment">Endpoint Security Assessment</option>
-    <option className="text-black" value="Cloud Security Review">Cloud Security Review</option>
-    <option className="text-black" value="Compliance & Risk Management (ISO, GDPR, NIST)">
-      Compliance & Risk Management (ISO, GDPR, NIST)
-    </option>
-    <option className="text-black" value="Others">Others</option>
-  </select>
-</div>
+                        >
+                            <option className="text-black" value="Please select an option" disabled>
+
+                            </option>
+                            <option className="text-black" value="Security Astra SaaS Subscription">Security Astra Premium</option>
+                            <option className="text-black" value="Website Vulnerability Assessment">Website Vulnerability Assessment</option>
+                            <option className="text-black" value="Network Penetration Testing">Network Penetration Testing</option>
+                            <option className="text-black" value="Endpoint Security Assessment">Endpoint Security Assessment</option>
+                            <option className="text-black" value="Cloud Security Review">Cloud Security Review</option>
+                            <option className="text-black" value="Compliance & Risk Management (ISO, GDPR, NIST)">
+                                Compliance & Risk Management (ISO, GDPR, NIST)
+                            </option>
+                            <option className="text-black" value="Others">Others</option>
+                        </select>
+                    </div>
 
                     <div className="md:col-span-2 flex flex-col lg:flex-row items-start justify-center mt-2 gap-4 relative z-[10000]">
                         <ReCAPTCHA
