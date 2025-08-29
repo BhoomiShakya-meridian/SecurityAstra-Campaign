@@ -7,6 +7,7 @@ import GetInTouch from '../component/GetInTouch';
 import Footercopy from '../component/Footercopy';
 import FAQcopy from '../component/FAQcopy';
 import Testimonial from '../component/Testimonial';
+import WhatsAppButton from '../component/WhatsAppButton';
 
 function Home() {
   return (
@@ -19,7 +20,8 @@ function Home() {
         <GetInTouch/>
         <FAQcopy/>
         <Footercopy/>
-        <ScrollToTop/>
+        {/* <ScrollToTop/> */}
+        <WhatsAppButton/>
     </div>
   )
 }
