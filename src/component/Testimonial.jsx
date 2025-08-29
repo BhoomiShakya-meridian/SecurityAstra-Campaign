@@ -38,9 +38,9 @@ const testimonials = [
 
 function Testimonial() {
     return (
-        <div 
-        id="testimonial"
-        className="text-white py-16 px-6">
+        <div
+            id="testimonial"
+            className="text-white py-16 px-6">
             <h2 className="text-3xl font-bold mb-2 text-center">What Our Clients Say?</h2>
             <p className="text-gray-400 max-w-2xl text-center mx-auto mb-12">
                 Hear from businesses and professionals who trust Security Astra for their penetration testing and reporting needs.
@@ -58,7 +58,21 @@ function Testimonial() {
                 centeredSlides={true}
                 grabCursor={true}
                 loop={true}
-                className="max-w-6xl my-8 rounded-2xl " // added pb-12
+                className="max-w-6xl my-8 rounded-2xl  " // added pb-12
+                breakpoints={{
+                    0: {       // 👈 for mobile (0px and up)
+                        slidesPerView: 1,
+                        spaceBetween: 20,
+                    },
+                    768: {     // 👈 for tablets (≥768px)
+                        slidesPerView: 2,
+                        spaceBetween: 25,
+                    },
+                    1024: {    // 👈 for desktops (≥1024px)
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                    },
+                }}
             >
 
                 {testimonials.map((item, index) => (
