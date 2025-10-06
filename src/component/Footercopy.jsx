@@ -1,6 +1,9 @@
 import React from "react";
 import { FaFacebook, FaTwitter as FaXTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
+import { FaYoutube } from "react-icons/fa";
+import { IoLogoLinkedin } from "react-icons/io5";
+
 
 const Footer = () => {
     return (
@@ -26,9 +29,9 @@ const Footer = () => {
 
                 {/* Center: Social Icons */}
                 <div className="flex items-center ml-[-6rem] gap-4">
-                    <a href="#"><FaFacebook className="w-5 h-5 md:w-6 md:h-6" /></a>
-                    <a href="#"><FaXTwitter className="w-5 h-5 md:w-6 md:h-6" /></a>
-                    <a href="#"><FaInstagram className="w-5 h-5 md:w-6 md:h-6" /></a>
+                    <a href="https://www.youtube.com/channel/UCUu7tZJBEom0EHpXXWg45Vg"><FaYoutube  className="w-5 h-5 md:w-6 md:h-6" /></a>
+                    <a href="https://www.linkedin.com/company/on-meridian/"><IoLogoLinkedin  className="w-5 h-5 md:w-6 md:h-6" /></a>
+                    <a href="https://www.instagram.com/onmeridian/"><FaInstagram className="w-5 h-5 md:w-6 md:h-6" /></a>
                 </div>
 
                 {/* Right: Links */}
